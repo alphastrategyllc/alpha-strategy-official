@@ -578,6 +578,81 @@ body {
   color: var(--accent);
 }
 
+/* Testimonials */
+.testimonials {
+  background: var(--bg);
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.testimonial-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.testimonial-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+}
+
+.testimonial-verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--success);
+  letter-spacing: 0.03em;
+  margin-bottom: 0.75rem;
+}
+
+.testimonial-quote {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  font-style: normal;
+}
+
+.testimonial-quote::before {
+  content: '"';
+  color: var(--accent);
+  opacity: 0.8;
+}
+
+.testimonial-quote::after {
+  content: '"';
+  color: var(--accent);
+  opacity: 0.8;
+}
+
+.testimonial-author {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.testimonial-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.testimonial-location {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
 /* Pricing */
 .pricing-grid {
   display: grid;
@@ -731,6 +806,74 @@ body {
 /* Payment */
 .payment {
   background: var(--bg-elevated);
+}
+
+.how-to-pay {
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+  padding: 1.75rem 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  border-left: 4px solid var(--accent);
+}
+
+.how-to-pay-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 1.25rem;
+  color: var(--text);
+}
+
+.how-to-pay-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: pay-step;
+}
+
+.how-to-pay-step {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  counter-increment: pay-step;
+}
+
+.how-to-pay-step:last-child {
+  margin-bottom: 0;
+}
+
+.how-to-pay-num {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 50%;
+}
+
+.how-to-pay-step div {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.how-to-pay-step strong {
+  color: var(--text);
+}
+
+.how-to-pay-step ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.how-to-pay-step li {
+  margin: 0.25rem 0;
 }
 
 .payment-box {
