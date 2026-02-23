@@ -74,6 +74,63 @@
     });
   }
 
+  // Access request form (Formspree or mailto fallback)
+  function initAccessForm() {
+    var form = document.getElementById('access-request-form');
+    var wrap = form && form.closest('.access-request-form-wrap');
+    var successEl = document.getElementById('access-form-success');
+    if (!form || !wrap || !successEl) return;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var action = (form.getAttribute('action') || '').trim();
+      var txHash = (document.getElementById('access-txhash') && document.getElementById('access-txhash').value) || '';
+      var plan = (document.getElementById('access-plan') && document.getElementById('access-plan').value) || '';
+      var email = (document.getElementById('access-email') && document.getElementById('access-email').value) || '';
+
+      if (action && action.indexOf('YOUR_FORM_ID') === -1) {
+        // Formspree configured: POST form → email is sent to support inbox automatically
+        var body = new FormData(form);
+        fetch(action, { method: 'POST', body: body, headers: { Accept: 'application/json' } })
+          .then(function (res) {
+            if (res.ok) {
+              wrap.classList.add('form-submitted');
+              successEl.removeAttribute('hidden');
+            } else {
+              throw new Error('Submit failed');
+            }
+          })
+          .catch(function () {
+            openMailto(txHash, plan, email);
+            setSuccessMessage(successEl, 'Your deliverables are on the way', 'We couldn’t send automatically. We’ve opened your email with the details—please send the message to complete your request. We’ll then send your strategy files to this email within 24–48 hours.');
+            wrap.classList.add('form-submitted');
+            successEl.removeAttribute('hidden');
+          });
+      } else {
+        // Formspree not set up yet: fallback to mailto so user can still submit
+        openMailto(txHash, plan, email);
+        setSuccessMessage(successEl, 'Your deliverables are on the way', 'We’ve opened your email with the details pre-filled. Please send the message to complete your request—we’ll then send your strategy files to this email within 24–48 hours.');
+        wrap.classList.add('form-submitted');
+        successEl.removeAttribute('hidden');
+      }
+    });
+  }
+
+  function setSuccessMessage(successEl, title, text) {
+    var titleEl = successEl.querySelector('.access-form-success-title');
+    var textEl = successEl.querySelector('.access-form-success-text');
+    if (titleEl) titleEl.textContent = title;
+    if (textEl) textEl.textContent = text;
+  }
+
+  function openMailto(txHash, plan, email) {
+    var subject = encodeURIComponent('Alpha Strategy — Delivery request');
+    var body = encodeURIComponent(
+      'Transaction hash (TX ID): ' + txHash + '\n\nPlan: ' + plan + '\n\nEmail: ' + email
+    );
+    window.location.href = 'mailto:support@alphastrategy.com?subject=' + subject + '&body=' + body;
+  }
+
   // Mobile nav toggle
   function initNav() {
     const toggle = document.querySelector('.nav-toggle');
@@ -104,6 +161,7 @@
     initQR();
     initCopy();
     initProtection();
+    initAccessForm();
     initNav();
   }
 })();

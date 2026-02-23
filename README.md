@@ -25,5 +25,3 @@ Plans are priced in **USDT** (TRC-20): **Starter**, **Pro**, and **Lifetime**. D
 - **Registered address:** Alpha Strategy FZ-LLC, Office 1204, Building 7, Dubai Knowledge Park, Dubai, United Arab Emirates
 
 ---
-
-*This repository contains the source for the official Alpha Strategy website. To deploy it on GitHub Pages: push to GitHub, then in the repo **Settings → Pages** set source to the default branch and root folder.*
